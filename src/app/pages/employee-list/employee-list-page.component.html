@@ -1,0 +1,84 @@
+<section class="dashboard">
+  <div class="hero">
+    <div>
+      <p class="kicker">Employee management</p>
+      <h1>Employee List</h1>
+      <p>Search by department or position, then view, edit, or remove records.</p>
+    </div>
+    <a class="primary-btn" routerLink="/employees/new">Add Employee</a>
+  </div>
+
+  <form class="filter-panel" [formGroup]="filterForm" (ngSubmit)="applyFilters()">
+    <label class="field">
+      <span>Department</span>
+      <input type="text" formControlName="department" placeholder="Engineering" />
+    </label>
+
+    <label class="field">
+      <span>Position</span>
+      <input type="text" formControlName="position" placeholder="Developer" />
+    </label>
+
+    <div class="action-row">
+      <button class="primary-btn small" type="submit">Search</button>
+      <button class="secondary-btn small" type="button" (click)="clearFilters()">Reset</button>
+    </div>
+  </form>
+
+  @if (errorMessage()) {
+    <p class="banner error">{{ errorMessage() }}</p>
+  }
+
+  @if (isLoading()) {
+    <div class="empty-state">Loading employees...</div>
+  } @else if (!employees().length) {
+    <div class="empty-state">No employee records match the current search.</div>
+  } @else {
+    <div class="table-card">
+      <table>
+        <thead>
+          <tr>
+            <th>Employee</th>
+            <th>Department</th>
+            <th>Position</th>
+            <th>Salary</th>
+            <th>Created</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (employee of employees(); track employee.id) {
+            <tr>
+              <td>
+                <div class="employee-cell">
+                  <div class="avatar">
+                    @if (employee.profilePicture) {
+                      <img [src]="employee.profilePicture" [alt]="employee.firstName" />
+                    } @else {
+                      <span>{{ employee.firstName[0] }}{{ employee.lastName[0] }}</span>
+                    }
+                  </div>
+                  <div>
+                    <strong>{{ employee.firstName }} {{ employee.lastName }}</strong>
+                    <span>{{ employee.email }}</span>
+                  </div>
+                </div>
+              </td>
+              <td>{{ employee.department }}</td>
+              <td>{{ employee.position }}</td>
+              <td>{{ employee.salary | currency:'CAD':'symbol':'1.0-0' }}</td>
+              <td>{{ employee.createdAt || today | date:'mediumDate' }}</td>
+              <td>
+                <div class="table-actions">
+                  <button type="button" class="link-btn" (click)="viewDetails(employee.id)">View</button>
+                  <a class="link-btn" [routerLink]="['/employees', employee.id, 'edit']">Edit</a>
+                  <button type="button" class="link-btn danger" (click)="deleteEmployee(employee.id)">Delete</button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</section>

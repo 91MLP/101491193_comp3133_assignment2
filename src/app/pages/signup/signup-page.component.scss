@@ -1,0 +1,94 @@
+:host {
+  display: block;
+}
+
+.auth-layout {
+  align-items: stretch;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr;
+  min-height: calc(100vh - 8rem);
+}
+
+.auth-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 28px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.18);
+  display: grid;
+  gap: 1rem;
+  padding: 2rem;
+}
+
+.intro {
+  background: linear-gradient(135deg, rgba(14, 42, 92, 0.85), rgba(28, 96, 127, 0.75));
+  color: #f6f9ff;
+}
+
+.intro h1,
+.auth-card h2 {
+  margin: 0;
+}
+
+.kicker {
+  color: #ffbc42;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  margin-bottom: 1rem;
+  text-transform: uppercase;
+}
+
+.field {
+  color: #102033;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.field input {
+  border: 1px solid #ccd7e3;
+  border-radius: 14px;
+  font: inherit;
+  padding: 0.9rem 1rem;
+}
+
+.field small {
+  color: #b42318;
+}
+
+.banner {
+  border-radius: 14px;
+  margin: 0;
+  padding: 0.9rem 1rem;
+}
+
+.error {
+  background: #fdecec;
+  color: #a61b1b;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #0f8b8d, #66c7b4);
+  border: 0;
+  border-radius: 999px;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.95rem 1.2rem;
+}
+
+.footnote {
+  color: #4d6078;
+  margin: 0;
+}
+
+.footnote a {
+  color: #113b7a;
+  font-weight: 700;
+}
+
+@media (max-width: 860px) {
+  .auth-layout {
+    grid-template-columns: 1fr;
+  }
+}

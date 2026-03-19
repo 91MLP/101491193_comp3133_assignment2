@@ -1,0 +1,50 @@
+@if (isLoading()) {
+  <div class="detail-card">Loading employee details...</div>
+} @else if (errorMessage()) {
+  <div class="detail-card error-state">
+    <p>{{ errorMessage() }}</p>
+    <button class="secondary-btn" type="button" (click)="back()">Back</button>
+  </div>
+} @else if (employee(); as currentEmployee) {
+  <section class="detail-card">
+    <div class="header-row">
+      <button class="secondary-btn" type="button" (click)="back()">Back</button>
+      <a class="primary-btn" [routerLink]="['/employees', currentEmployee.id, 'edit']">Edit Employee</a>
+    </div>
+
+    <div class="profile-section">
+      <div class="portrait">
+        @if (currentEmployee.profilePicture) {
+          <img [src]="currentEmployee.profilePicture" [alt]="currentEmployee.firstName" />
+        } @else {
+          <span>{{ currentEmployee.firstName[0] }}{{ currentEmployee.lastName[0] }}</span>
+        }
+      </div>
+
+      <div>
+        <p class="kicker">{{ currentEmployee.department }}</p>
+        <h1>{{ currentEmployee.firstName }} {{ currentEmployee.lastName }}</h1>
+        <p>{{ currentEmployee.position }}</p>
+      </div>
+    </div>
+
+    <div class="detail-grid">
+      <article>
+        <h2>Contact</h2>
+        <p><strong>Email:</strong> {{ currentEmployee.email }}</p>
+        <p><strong>Phone:</strong> {{ currentEmployee.phone || 'N/A' }}</p>
+      </article>
+
+      <article>
+        <h2>Employment</h2>
+        <p><strong>Salary:</strong> {{ currentEmployee.salary | currency:'CAD':'symbol':'1.0-0' }}</p>
+        <p><strong>Created:</strong> {{ currentEmployee.createdAt | date:'medium' }}</p>
+      </article>
+    </div>
+
+    <article class="bio-panel">
+      <h2>Profile summary</h2>
+      <p>{{ currentEmployee.bio || 'No biography available.' }}</p>
+    </article>
+  </section>
+}

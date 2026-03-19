@@ -1,0 +1,80 @@
+@if (isLoading()) {
+  <div class="form-card">Loading employee form...</div>
+} @else {
+  <section class="form-card">
+    <div class="header-row">
+      <div>
+        <p class="kicker">{{ isEditMode() ? 'Update employee' : 'Create employee' }}</p>
+        <h1>{{ isEditMode() ? 'Edit Employee' : 'Add Employee' }}</h1>
+      </div>
+      <button class="secondary-btn" type="button" (click)="cancel()">Back</button>
+    </div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="grid">
+        <label class="field">
+          <span>First name</span>
+          <input type="text" formControlName="firstName" />
+        </label>
+
+        <label class="field">
+          <span>Last name</span>
+          <input type="text" formControlName="lastName" />
+        </label>
+
+        <label class="field">
+          <span>Email</span>
+          <input type="email" formControlName="email" />
+        </label>
+
+        <label class="field">
+          <span>Phone</span>
+          <input type="text" formControlName="phone" />
+        </label>
+
+        <label class="field">
+          <span>Department</span>
+          <input type="text" formControlName="department" />
+        </label>
+
+        <label class="field">
+          <span>Position</span>
+          <input type="text" formControlName="position" />
+        </label>
+
+        <label class="field">
+          <span>Salary</span>
+          <input type="number" formControlName="salary" min="1" />
+        </label>
+
+        <label class="field">
+          <span>Profile picture</span>
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" />
+        </label>
+      </div>
+
+      <label class="field">
+        <span>Bio</span>
+        <textarea rows="5" formControlName="bio"></textarea>
+      </label>
+
+      @if (imagePreview()) {
+        <div class="preview-card">
+          <span>Image preview</span>
+          <img [src]="imagePreview()" alt="Employee preview" />
+        </div>
+      }
+
+      @if (errorMessage()) {
+        <p class="banner error">{{ errorMessage() }}</p>
+      }
+
+      <div class="action-row">
+        <button class="primary-btn" type="submit" [disabled]="isSubmitting()">
+          {{ isSubmitting() ? 'Saving...' : (isEditMode() ? 'Update Employee' : 'Create Employee') }}
+        </button>
+        <button class="secondary-btn" type="button" (click)="cancel()">Cancel</button>
+      </div>
+    </form>
+  </section>
+}

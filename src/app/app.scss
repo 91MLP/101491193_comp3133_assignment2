@@ -1,0 +1,74 @@
+.app-shell {
+  min-height: 100vh;
+}
+
+.topbar {
+  align-items: center;
+  backdrop-filter: blur(18px);
+  background: rgba(8, 15, 26, 0.82);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  justify-content: space-between;
+  left: 0;
+  padding: 1rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 20;
+}
+
+.brand {
+  color: #f4f7fb;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.page-wrap {
+  margin: 0 auto;
+  max-width: 1200px;
+  padding: 2rem 1.25rem 4rem;
+}
+
+.session-actions {
+  align-items: center;
+  display: flex;
+  gap: 1rem;
+}
+
+.session-copy {
+  color: #f4f7fb;
+  display: flex;
+  flex-direction: column;
+}
+
+.eyebrow {
+  color: rgba(255, 255, 255, 0.64);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.ghost-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  color: #f4f7fb;
+  cursor: pointer;
+  font: inherit;
+  padding: 0.7rem 1rem;
+}
+
+@media (max-width: 720px) {
+  .topbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.85rem;
+  }
+
+  .session-actions {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

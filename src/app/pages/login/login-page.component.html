@@ -1,0 +1,46 @@
+<section class="auth-layout">
+  <div class="auth-copy">
+    <p class="kicker">COMP3133 Assignment 2</p>
+    <h1>Manage employee records with a clean Angular workflow.</h1>
+    <p>
+      Sign in to view the employee directory, search by department or position,
+      and perform GraphQL-powered CRUD operations.
+    </p>
+  </div>
+
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <p class="kicker">Welcome back</p>
+      <h2>Login</h2>
+    </div>
+
+    <label class="field">
+      <span>Email</span>
+      <input type="email" formControlName="email" placeholder="demo@example.com" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <small>Please enter a valid email address.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Password</span>
+      <input type="password" formControlName="password" placeholder="Password123!" />
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <small>Password must be at least 8 characters.</small>
+      }
+    </label>
+
+    @if (errorMessage()) {
+      <p class="banner error">{{ errorMessage() }}</p>
+    }
+
+    <button class="primary-btn" type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Signing in...' : 'Login' }}
+    </button>
+
+    <p class="footnote">
+      No account yet?
+      <a routerLink="/signup">Create one here</a>
+    </p>
+  </form>
+</section>

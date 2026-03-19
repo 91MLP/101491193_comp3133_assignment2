@@ -1,0 +1,19 @@
+<div class="app-shell">
+  <header class="topbar">
+    <a class="brand" routerLink="/employees">EmployeeHub</a>
+
+    @if (session.currentUser()) {
+      <div class="session-actions">
+        <div class="session-copy">
+          <span class="eyebrow">Signed in as</span>
+          <strong>{{ session.currentUser()?.name || session.currentUser()?.email }}</strong>
+        </div>
+        <button type="button" class="ghost-btn" (click)="logout()">Logout</button>
+      </div>
+    }
+  </header>
+
+  <main class="page-wrap">
+    <router-outlet />
+  </main>
+</div>

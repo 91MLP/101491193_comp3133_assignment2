@@ -1,0 +1,116 @@
+:host {
+  display: block;
+}
+
+.form-card {
+  background: rgba(255, 255, 255, 0.94);
+  border-radius: 28px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+  display: grid;
+  gap: 1.5rem;
+  padding: 1.75rem;
+}
+
+.header-row {
+  align-items: start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-row h1 {
+  margin: 0;
+}
+
+.kicker {
+  color: #145da0;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.field {
+  color: #102033;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.field input,
+.field textarea {
+  border: 1px solid #ccd7e3;
+  border-radius: 14px;
+  font: inherit;
+  padding: 0.9rem 1rem;
+}
+
+.preview-card {
+  background: #f8fbfd;
+  border-radius: 20px;
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem;
+}
+
+.preview-card img {
+  border-radius: 18px;
+  max-height: 260px;
+  object-fit: cover;
+  width: 100%;
+}
+
+.action-row {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.primary-btn,
+.secondary-btn {
+  border-radius: 999px;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 700;
+  padding: 0.9rem 1.2rem;
+}
+
+.primary-btn {
+  background: linear-gradient(135deg, #145da0, #1db9c3);
+  border: 0;
+  color: #fff;
+}
+
+.secondary-btn {
+  background: transparent;
+  border: 1px solid #bcc8d6;
+  color: #17324d;
+}
+
+.banner {
+  border-radius: 14px;
+  margin: 0;
+  padding: 0.9rem 1rem;
+}
+
+.error {
+  background: #fdecec;
+  color: #a61b1b;
+}
+
+@media (max-width: 760px) {
+  .header-row,
+  .grid,
+  .action-row {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+}

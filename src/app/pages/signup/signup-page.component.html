@@ -1,0 +1,54 @@
+<section class="auth-layout">
+  <div class="auth-card intro">
+    <p class="kicker">Create account</p>
+    <h1>Sign up for employee administration.</h1>
+    <p>
+      Register a user account to access the employee dashboard and manage records
+      through a routed single-page Angular interface.
+    </p>
+  </div>
+
+  <form class="auth-card" [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <p class="kicker">New account</p>
+      <h2>Signup</h2>
+    </div>
+
+    <label class="field">
+      <span>Full name</span>
+      <input type="text" formControlName="name" placeholder="Jane Doe" />
+      @if (form.controls.name.touched && form.controls.name.invalid) {
+        <small>Name is required.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Email</span>
+      <input type="email" formControlName="email" placeholder="jane@example.com" />
+      @if (form.controls.email.touched && form.controls.email.invalid) {
+        <small>Please enter a valid email address.</small>
+      }
+    </label>
+
+    <label class="field">
+      <span>Password</span>
+      <input type="password" formControlName="password" placeholder="Password123!" />
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+        <small>Password must be at least 8 characters.</small>
+      }
+    </label>
+
+    @if (errorMessage()) {
+      <p class="banner error">{{ errorMessage() }}</p>
+    }
+
+    <button class="primary-btn" type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Creating account...' : 'Signup' }}
+    </button>
+
+    <p class="footnote">
+      Already registered?
+      <a routerLink="/login">Go to login</a>
+    </p>
+  </form>
+</section>
