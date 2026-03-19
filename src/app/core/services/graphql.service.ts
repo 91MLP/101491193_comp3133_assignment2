@@ -12,17 +12,29 @@ interface GraphqlResponse<T> {
 })
 export class GraphqlService {
   private readonly session = inject(SessionService);
-  private readonly endpoint = 'http://localhost:4000/graphql';
+  private readonly endpoint = '/graphql';
+  private backendUnavailable = false;
 
   async request<T>(query: string, variables: object = {}): Promise<T> {
-    const response = await fetch(this.endpoint, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(this.session.token() ? { Authorization: `Bearer ${this.session.token()}` } : {})
-      },
-      body: JSON.stringify({ query, variables })
-    });
+    if (this.backendUnavailable) {
+      throw new Error('GraphQL backend is unavailable');
+    }
+
+    let response: Response;
+
+    try {
+      response = await fetch(this.endpoint, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          ...(this.session.token() ? { Authorization: `Bearer ${this.session.token()}` } : {})
+        },
+        body: JSON.stringify({ query, variables })
+      });
+    } catch {
+      this.backendUnavailable = true;
+      throw new Error('GraphQL backend is unavailable');
+    }
 
     if (!response.ok) {
       throw new Error(`GraphQL request failed with status ${response.status}`);

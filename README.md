@@ -30,6 +30,7 @@ npm start
 ```
 
 The app runs at `http://localhost:4200`.
+`npm start` now uses Angular's proxy config so frontend requests to `/graphql` are forwarded to `http://localhost:4000/graphql` during local development.
 
 ## Demo account
 
@@ -43,8 +44,10 @@ If no backend is running, the app falls back to local mock authentication and em
 The frontend sends requests to:
 
 ```text
-http://localhost:4000/graphql
+/graphql
 ```
+
+In Angular development mode, that path is proxied to `http://localhost:4000/graphql` by `proxy.conf.json`.
 
 Expected operations:
 
