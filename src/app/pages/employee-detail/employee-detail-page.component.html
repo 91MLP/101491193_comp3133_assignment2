@@ -32,19 +32,15 @@
       <article>
         <h2>Contact</h2>
         <p><strong>Email:</strong> {{ currentEmployee.email }}</p>
-        <p><strong>Phone:</strong> {{ currentEmployee.phone || 'N/A' }}</p>
+        <p><strong>Gender:</strong> {{ currentEmployee.gender || 'N/A' }}</p>
       </article>
 
       <article>
         <h2>Employment</h2>
         <p><strong>Salary:</strong> {{ currentEmployee.salary | currency:'CAD':'symbol':'1.0-0' }}</p>
+        <p><strong>Date of joining:</strong> {{ currentEmployee.dateOfJoining | date:'mediumDate' }}</p>
         <p><strong>Created:</strong> {{ currentEmployee.createdAt | date:'medium' }}</p>
       </article>
     </div>
-
-    <article class="bio-panel">
-      <h2>Profile summary</h2>
-      <p>{{ currentEmployee.bio || 'No biography available.' }}</p>
-    </article>
   </section>
 }

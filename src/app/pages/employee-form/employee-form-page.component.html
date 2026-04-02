@@ -28,8 +28,13 @@
         </label>
 
         <label class="field">
-          <span>Phone</span>
-          <input type="text" formControlName="phone" />
+          <span>Gender</span>
+          <select formControlName="gender">
+            <option value="">Select gender</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Other">Other</option>
+          </select>
         </label>
 
         <label class="field">
@@ -44,7 +49,12 @@
 
         <label class="field">
           <span>Salary</span>
-          <input type="number" formControlName="salary" min="1" />
+          <input type="number" formControlName="salary" min="1000" />
+        </label>
+
+        <label class="field">
+          <span>Date of joining</span>
+          <input type="date" formControlName="dateOfJoining" />
         </label>
 
         <label class="field">
@@ -52,11 +62,6 @@
           <input type="file" accept="image/*" (change)="onFileSelected($event)" />
         </label>
       </div>
-
-      <label class="field">
-        <span>Bio</span>
-        <textarea rows="5" formControlName="bio"></textarea>
-      </label>
 
       @if (imagePreview()) {
         <div class="preview-card">

@@ -6,6 +6,8 @@ export interface Employee {
   department: string;
   position: string;
   salary: number;
+  gender?: string;
+  dateOfJoining?: string;
   phone?: string;
   bio?: string;
   profilePicture?: string;
@@ -24,6 +26,8 @@ export interface EmployeeInput {
   department: string;
   position: string;
   salary: number;
+  gender: string;
+  dateOfJoining: string;
   phone?: string;
   bio?: string;
   profilePicture?: string;

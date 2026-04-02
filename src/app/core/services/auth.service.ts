@@ -11,6 +11,12 @@ interface StoredAuthUser {
   password: string;
 }
 
+interface GraphqlUser {
+  _id: string;
+  username: string;
+  email: string;
+}
+
 interface AuthResult {
   token: string;
   user: SessionUser;
@@ -49,36 +55,39 @@ export class AuthService {
 
   private async loginWithGraphql(email: string, password: string): Promise<AuthResult> {
     const query = `
-      mutation Login($email: String!, $password: String!) {
-        login(email: $email, password: $password) {
+      query Login($usernameOrEmail: String!, $password: String!) {
+        login(usernameOrEmail: $usernameOrEmail, password: $password) {
           token
           user {
-            id
-            name
+            _id
+            username
             email
           }
         }
       }
     `;
-    const data = await this.graphql.request<{ login: AuthResult }>(query, { email, password });
-    return data.login;
+    const data = await this.graphql.request<{ login: { token: string; user: GraphqlUser } }>(query, {
+      usernameOrEmail: email,
+      password
+    });
+    return {
+      token: data.login.token,
+      user: this.mapGraphqlUser(data.login.user)
+    };
   }
 
   private async signupWithGraphql(name: string, email: string, password: string): Promise<AuthResult> {
     const query = `
       mutation Signup($name: String!, $email: String!, $password: String!) {
-        signup(name: $name, email: $email, password: $password) {
-          token
-          user {
-            id
-            name
-            email
-          }
+        signup(username: $name, email: $email, password: $password) {
+          _id
+          username
+          email
         }
       }
     `;
-    const data = await this.graphql.request<{ signup: AuthResult }>(query, { name, email, password });
-    return data.signup;
+    await this.graphql.request<{ signup: GraphqlUser }>(query, { name, email, password });
+    return this.loginWithGraphql(email, password);
   }
 
   private loginWithFallback(email: string, password: string): AuthResult {
@@ -145,5 +154,13 @@ export class AuthService {
       localStorage.removeItem(MOCK_USERS_KEY);
       return [];
     }
+  }
+
+  private mapGraphqlUser(user: GraphqlUser): SessionUser {
+    return {
+      id: user._id,
+      name: user.username,
+      email: user.email
+    };
   }
 }
